@@ -69,6 +69,7 @@ class NoteForm extends React.Component {
           <label>
             Name:
               <input
+              required
               type="text"
               name="name"
               value={this.state.name}
@@ -78,6 +79,7 @@ class NoteForm extends React.Component {
           <br /><br />
 
           <textarea
+            required
             cols={70}
             rows={5}
             name="content"
