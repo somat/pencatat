@@ -1,11 +1,12 @@
 import React from 'react';
 import { Redirect } from 'react-router';
+import { LOGIN_URL } from 'views/constants'
 
 class Login extends React.Component {
   constructor() {
     super()
     this.state = {
-      username: '',
+      email: '',
       password: '',
       redirect: false
     }
@@ -16,7 +17,7 @@ class Login extends React.Component {
   }
 
   handleUsernameChange(event) {
-    this.setState({ username: event.target.value })
+    this.setState({ email: event.target.value })
   }
 
   handlePasswordChange(event) {
@@ -30,12 +31,12 @@ class Login extends React.Component {
 
   doLogin() {
     let data = {
-      username: this.state.username,
+      email: this.state.email,
       password: this.state.password
     }
 
     fetch(
-      'http://localhost:3000/login',
+      LOGIN_URL,
       {
         method: 'POST',
         body: JSON.stringify(data),
@@ -52,14 +53,14 @@ class Login extends React.Component {
       })
       .then((response) => response.json())
       .then((data) => {
-        if (data.success) {
+        if (data.status === "success") {
           this.setState({
-            username: '',
+            email: '',
             password: ''
           })
 
           localStorage.setItem('login@pencatat', true)
-          localStorage.setItem('token@pencatat', data.token)
+          localStorage.setItem('token@pencatat', data.data.token)
           this.setState({redirect: true})
         } else {
           alert('Authentication error')
@@ -79,13 +80,13 @@ class Login extends React.Component {
         <div className="form">
           <form onSubmit={this.handleSubmit}>
             <label>
-              Username:
+              Email:
               <input
                 type="text"
-                name="username"
-                value={this.state.username}
+                name="email"
+                value={this.state.email}
                 onChange={this.handleUsernameChange}
-                ref={(input) => { this.username = input; }} />
+                ref={(input) => { this.email = input; }} />
             </label>
             <br />
 
@@ -93,7 +94,7 @@ class Login extends React.Component {
               Password:
               <input
                 type="password"
-                name="username"
+                name="password"
                 value={this.state.password}
                 onChange={this.handlePasswordChange} />
             </label>

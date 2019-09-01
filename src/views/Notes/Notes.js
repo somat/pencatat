@@ -1,9 +1,10 @@
 import React from 'react';
+import { Link } from 'react-router-dom'
+import { NOTES_URL } from 'views/constants'
 import NoteList from './NoteList'
 import NoteForm from './NoteForm'
-import { Link } from 'react-router-dom'
 
-class Home extends React.Component {
+class Notes extends React.Component {
   constructor() {
     super()
     this.state = {
@@ -25,7 +26,9 @@ class Home extends React.Component {
   }
 
   updateList() {
-    fetch('http://localhost:3000/post', { method: 'GET' })
+    fetch(
+      NOTES_URL,
+      { method: 'GET' })
       .then((response) => {
         if (!response.ok) {
           throw Error(response.statusText)
@@ -34,7 +37,7 @@ class Home extends React.Component {
       })
       .then((response) => response.json())
       .then((data) => {
-        this.setState({ articles: data.data })
+        this.setState({ articles: data.data.notes })
       })
       .catch((err) => {
         throw Error(err)
@@ -44,7 +47,7 @@ class Home extends React.Component {
   doLogout() {
     localStorage.removeItem('login@pencatat')
     localStorage.removeItem('token@pencatat')
-    this.setState({loggedin: false})
+    this.setState({ loggedin: false })
   }
 
   render() {
@@ -63,14 +66,15 @@ class Home extends React.Component {
           </div>
           :
           <p>
-            Anda belum login.  <Link to="/login">Login</Link>
+            Anda belum login.  <Link to="/login">Login</Link> atau  <Link to="/register">Register</Link> 
           </p>
         }
+        <hr />
 
-        <NoteList articles={this.state.articles} />
+        <NoteList articles={this.state.articles} isAuthenticated={this.state.loggedin}/>
       </div>
     )
   }
 }
 
-export default Home;
+export default Notes;
