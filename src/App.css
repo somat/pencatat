@@ -1,7 +1,7 @@
 .App {
     width: auto;
     max-width: 680px;
-    padding: 0 15px;
+    padding: 20px 0 0 20px;
 }
 
 .btn {
@@ -18,4 +18,10 @@
     padding: .375rem .75rem;
     font-size: 1rem;
     line-height: 1.5;
+}
+
+table, td {
+    border:1px solid black;
+    border-collapse: collapse;
+    padding: 10px;
 }
