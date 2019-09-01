@@ -5,6 +5,7 @@ import Notes from 'views/Notes/Notes'
 import Login from 'views/Auth/Login'
 import Register from 'views/Auth/Register'
 import NoteView from 'views/Notes/NoteView'
+import NoteEdit from 'views/Notes/NoteEdit'
 
 class App extends React.Component {
   render() {
@@ -14,7 +15,7 @@ class App extends React.Component {
         <Route path="/login" component={ Login } />
         <Route path="/register" component={ Register } />
         <Route path='/view/:id' component={ NoteView } />
-        <Route path='/edit/:id' component={ Register } />
+        <Route path='/edit/:id' component={ NoteEdit } />
       </Router>
     )
   }
