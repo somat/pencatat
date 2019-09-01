@@ -16,22 +16,20 @@ class NoteForm extends React.Component {
   }
 
   handleSubmit(event) {
-    this.sendArticle(this.state.article)
+    this.sendArticle()
     event.preventDefault()
   }
 
-  sendArticle(data) {
-    let formData = new FormData()
-    formData.append("article", data)
-    let x = {
-      article: data
+  sendArticle() {
+    let data = {
+      article: this.state.article
     }
 
     fetch(
       'http://localhost:3000/post',
       {
         method: 'POST',
-        body: JSON.stringify(x),
+        body: JSON.stringify(data),
         headers: {
           'Content-Type': 'application/json'
         }
